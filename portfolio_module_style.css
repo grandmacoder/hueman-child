@@ -1,0 +1,101 @@
+/*
+ Theme Name:   Hueman Child
+ Theme URI:    http://wtest.transitioncoalition.org/wp-content/themes/hueman-child/
+ Description:  Hueman Child Theme
+ Author:       Amy Carlson
+ Author URI:   http://transitioncoalition.org
+ Template:     hueman
+ Version:      1.0.0
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  twenty-fourteen-child
+*/
+
+/*page templates*/
+h1, h2, h3, h4, h5, h6 { color: #00225d; font-weight: 500; -ms-word-wrap: break-word; word-wrap: break-word; }
+h1.template ,h2.template ,h3.template ,h4.template,h5.template,h6.template   { margin-bottom: 14px; font-weight: 400; line-height: 1.3em; }
+h1.template h1 { font-size: 38px; letter-spacing: -1px; }
+h2.template { font-size: 34px; letter-spacing: -0.7px; }
+h3.template { font-size: 22px; letter-spacing: -0.5px; }
+h4.template{ font-size: 20px; letter-spacing: -0.3px; }
+h5.template { font-size: 18px; font-weight: 600; }
+h6.template{ font-size: 16px; font-weight: 600; text-transform: uppercase; }
+
+.cbo_summary_sheet {
+vertical-align:middle;
+display:inline;
+float:none;
+width:auto;
+background:none;
+border:none;
+color: #000;
+font-weight: 200;
+}
+
+a { color: #0b8ad4; text-decoration: none; outline: 0; }
+a:hover { color: #075aa7; }
+img { max-width: 100%; height: auto; }
+a,
+a:before,
+a:after {
+-webkit-transition-property: background color; -webkit-transition-duration: 0.2s; -webkit-transition-timing-function: ease;
+-moz-transition-property: background color; -moz-transition-duration: 0.2s; -moz-transition-timing-function: ease;
+-o-transition-property: background color; -o-transition-duration: 0.2s; -o-transition-timing-function: ease; 
+transition-property: background color; transition-duration: 0.2s; transition-timing-function: ease; }
+a img {
+-webkit-transition: opacity 0.2s ease;
+-moz-transition: opacity 0.2s ease;
+-o-transition: opacity 0.2s ease;
+transition: opacity 0.2s ease; }
+address,cite,em { font-style: italic; }
+strong { font-weight: 600; }
+.left,.alignleft { float: left; }
+.right,.alignright { float: right; }
+.aligncenter { margin-left: auto; margin-right: auto; }
+p  {font-size: 15px; line-height: 1.8em; font-weight: 300;}
+li {font-size: 15px; line-height: 1.8em; font-weight: 300;}
+
+/*show single module template */
+.score {font-size: 15px; line-height: 1.4em; font-weight: 600; color: #C17400;}
+
+
+#printSummaryHeader{
+visibility: hidden;
+}
+#moduleDetailsContainer{
+width: 800px;
+height: 2500px;
+position: relative;
+
+}
+#postTestSection{
+visibility: hidden;
+width: 100%;
+height: 100%;
+position: absolute;
+left: 0;
+}
+
+#activityContentSection{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  visibility: hidden;
+}
+
+#activitiesToCompleteSection{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+ visibility:visible;
+}
+#showActivitySummaryLink a{
+font-size: 16px;
+}
+#showPostTestLink a{
+font-size: 16px;
+}
+#hiddenSurveySummary{
+visibility: hidden;
+}

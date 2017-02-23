@@ -1,0 +1,56 @@
+#owl-demo .item{
+display: block;
+padding: 30px 0px;
+margin: 5px;
+color: #FFF;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 7px;
+background: #ffffff;
+height: 150px;
+}
+#owl-demo  img{
+
+   margin-top:-30px;
+   height: 138px;
+   width:240px;
+}
+
+#owl-demo  a{
+
+   margin-top:-30px;
+   height: 138px;
+   width:240px;
+  
+
+}
+#owl-demo  p{
+  color: #fff;
+  background-color: #00225D;
+  height: 65px;
+  padding-left:18px;
+  padding-top:18px;
+  line-height: 15px;
+  margin-top:-18px;
+}
+//To move navigation buttons outside use these settings:
+.owl-buttons{
+clear:both;
+}
+ .owl-next{
+top: -155px;
+float:right;
+
+position:relative;
+
+} 
+
+ .owl-prev{
+ top: -155px;
+float:left;
+position:relative;
+
+}
+.owl-pagination{
+display:none;
+}

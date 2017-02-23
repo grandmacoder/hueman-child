@@ -1,0 +1,85 @@
+/*Defaults Styling*/
+fieldset {background:#ffebd8; padding:10px; border:1px solid #fff; border-color:#fff #666661 #666661 #fff; margin-bottom:36px; width:400px;}
+input, textarea, select {font:15px/16px Arial, Helvetica, sans-serif; padding:0; float:left;}
+fieldset.action {margin-top:-35px;}
+legend {background:#97b4f8; color:#0c2c75; font:17px/21px Calibri, Arial, Helvetica, sans-serif; padding:0 10px; margin:-26px 0 0 -11px; font-weight:bold; border:1px solid #fff; border-color:#e5e5c3 #505014 #505014 #e5e5c3; border-radius : 3px;}
+label {font-size:15px; font-weight:bold; color:#000;}
+
+dl {clear:both;}
+dt {float:left; text-align:left; width:90px; line-height:25px; margin:0 5px 5px 0;}
+dd {float:left;  line-height:25px; margin:0 0 10px 0;}
+.fieldtab{background:#97b4f8; color:#0c2c75; font:17px/21px Calibri, Arial, Helvetica, sans-serif; padding:0 10px; font-weight:bold; border:1px solid #fff; border-color:#e5e5c3 #505014 #505014 #e5e5c3; border-radius : 3px;}
+
+#form_info_wrapper{ background:url(/wp-content/themes/hueman-child/img/fieldSearchImg/tcSearchTipsBG.png);  background-repeat: no-repeat; padding:3px 0; margin:0;  line-height:15px;}
+#fieldFormExample {margin-left:82%;}
+#fieldFormContainer {float:right; width: 50%;}
+#fieldFormInfoArea {width:30%;  padding:3px 0; margin:0; float:left; line-height:15px;}
+#tipsResults{padding-left: 30px;}
+/*Text inputs*/
+.NFText {border:none; vertical-align:middle; font:12px/15px Arial, Helvetica, sans-serif; background:none;}
+.NFTextCenter {height:15px; background:url(/wp-content/themes/hueman-child/img/fieldSearchImg/input.png) repeat-x 0 0; padding:3px 0; margin:0; float:left; line-height:15px;}
+.NFTextLeft, .NFTextRight {width:13px; height:21px; vertical-align:middle; float:left;}
+.NFTextLeft {background:url(/wp-content/themes/hueman-child/img/fieldSearchImg/input-left.png) no-repeat 0 0;}
+.NFTextRight {background:url(/wp-content/themes/hueman-child/img/fieldSearchImg/input-right.png) no-repeat 0 0;}
+
+/*Buttons*/
+.NFButton {width:auto; height:26px; color:#fff; padding:0 2px; background:url(wp-content/themes/hueman-child/img/fieldSearchImg/button.png) repeat-x 0 0; cursor:pointer; border:none; font:10px/26px Tahoma, Arial, Helvetica, sans-serif; font-weight:bold; text-transform:uppercase; letter-spacing:1px; vertical-align:middle;}
+.NFButtonLeft, .NFButtonRight {width:13px; height:26px; vertical-align:middle;}
+.NFButtonLeft {background:url(/wp-content/themes/hueman-child/img/fieldSearchImg/button-left.png) no-repeat 0 0;}
+.NFButtonRight {background:url(/wp-content/themes/hueman-child/img/fieldSearchImg/button-right.png) no-repeat 0 0;}
+
+/*Selects*/
+.NFSelect {height:21px; position:absolute; border:1px solid transparent;}
+.NFSelectLeft {float:left; width:13px; height:21px; background:url(/wp-content/themes/hueman-child/img/fieldSearchImg/select-left.png) no-repeat 0 0; vertical-align:middle;}
+.NFSelectRight {height:21px; width:auto; background:url(/wp-content/themes/hueman-child/img/fieldSearchImg/select-right.png) no-repeat 100% 0; cursor:pointer; font:12px/21px Arial, Helvetica, sans-serif; color:#fff; padding-left:3px; margin-left:3px;}
+.NFSelectTarget {position:absolute; background:none; margin-left:-13px; margin-top:18px; z-index:3; left:0; top:0; padding-bottom:13px;}
+.NFSelectOptions {position:relative; background:#707175; margin-left:16px; margin-top:0; list-style:none; padding:4px 0; color:#fff; font:11px/13px Arial, Helvetica, sans-serif; z-index:4; max-height:200px; overflow-y:auto; overflow-x:hidden; left:0; top:0;}
+.NFSelectOptions li {padding-bottom:1px;}
+.NFSelectOptions a {display:block; text-decoration:none; color:#fff; padding:2px 3px; background:none;}
+.NFSelectOptions a.NFOptionActive {background:#464646;}
+.NFSelectOptions a:hover {background:#333;}
+
+/*Focused*/
+.NFfocused {border:1px dotted #666;}
+/*Hovered*/
+.NFh {background-position:0 100%;}
+.NFhr {background-position:100% 100%;}
+/*Hidden*/
+.NFhidden {opacity:0; z-index:-1; position:relative;}
+#uconn_tip{
+	font-size: 11px; 
+	position: right; 
+	float: right; 
+	width: 140px; 
+	padding: 10px; 
+	border: solid #95A9DD; 
+	background-color:#D3DAEC; 
+	color: #000;
+}
+
+#submittipsearch{
+  cursor: pointer;
+  display:inline-block;
+  width: 20%;
+}
+.submittipsearch{
+    border : solid 1px #a67339;
+    border-radius : 3px;
+    moz-border-radius : 3px;
+    -webkit-box-shadow : 0px 2px 2px rgba(0,0,0,0.4);
+    -moz-box-shadow : 0px 2px 2px rgba(0,0,0,0.4);
+    box-shadow : 0px 2px 2px rgba(0,0,0,0.4);
+    font-size : 13px;
+    color : #ffffff;
+    padding : 8px 1px 8px 8px;
+    background : #e6a959;
+    background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e6a959), color-stop(100%,#8a3a00));
+    background : -moz-linear-gradient(top, #e6a959 0%, #8a3a00 100%);
+    background : -webkit-linear-gradient(top, #e6a959 0%, #8a3a00 100%);
+    background : -o-linear-gradient(top, #e6a959 0%, #8a3a00 100%);
+    background : -ms-linear-gradient(top, #e6a959 0%, #8a3a00 100%);
+    background : linear-gradient(top, #e6a959 0%, #8a3a00 100%);
+    filter : progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6a959', endColorstr='#8a3a00',GradientType=0 );
+  }
+  #tip_results{
+  padding-right: 50px;

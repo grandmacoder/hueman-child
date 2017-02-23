@@ -1,0 +1,307 @@
+var myApp = angular.module('myApp', ['rzModule','ui.bootstrap','ngSanitize']);
+//controller for q/a 
+myApp.controller('mainController', ['$scope','$http','$location', '$rootScope', '$timeout', '$uibModal', function($scope, $http, $location, $timeout, $rootScope, $timeout,$uibModal ) {
+	$scope.answerA = {};
+	$scope.selfgradeA = {};
+	$scope.radioB = '';
+	$scope.selfgrade = '';
+    $scope.answertext = 'Type your answer here';
+	$scope.prevQuest = '';
+	$scope.savedAns = '';
+	$scope.questioncount = 0;
+	$scope.gradecount = 0;
+	$scope.suggestAns= {};
+	$scope.questions={};
+	$scope.currentpage=$location.absUrl();
+	$scope.totalquestions=0;
+	$scope.finished = 0;
+    var baseURL = window.location.protocol+"//"+window.location.host;
+	//get the users answers if there are any and load the answer array
+    var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getUserAnswers";
+					 $http.get(urltoget)
+					 .success(function (result) {
+					//************************* load user answers and set finished variable***************************************
+				     $scope.answerA=result.useranswerarray;
+					 $scope.selfgradeA = result.userselfscore;
+					 $scope.finished =result.finished;
+						//get the questions from the database 
+							var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getQuestions";
+							  $http.get(urltoget)
+								.success(function (result) {
+									  $scope.totalquestions = result.totalquestions;
+									  for (var i=1; i <= $scope.totalquestions; i++){
+									  var questionvar = 'q'+i;
+									  $scope.questions[i-1] =result[questionvar];
+									 }
+								  //INSIDE SUCCESS LOAD THE suggested ANSWERS Array ---this is the rubric
+								   var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getAnswers&totalquestions="+$scope.totalquestions;
+											 $http.get(urltoget)
+											 .success(function (result) {
+											 $scope.suggestAns=result.answerarray;
+											})
+								  
+								   })
+								.error(function (data, status) {
+									  console.log("status" + status);
+								});
+	
+						//set divs on screen
+						$scope.answer = false;
+						$scope.results = false;
+						$scope.question = true;
+						$scope.course_navigation=false;
+						        //change settings if the user is finished
+								if ($scope.finished > 0){
+									 $scope.results = true;
+									 $scope.answer = false;
+									 $scope.question = false;
+									 $scope.course_navigation=true;
+								}
+                    //save answer function ***************************************************************								
+					 $scope.saveAnswer = function(){
+								$scope.savedAns = $scope.answertext;
+								$scope.answerA[$scope.questioncount] = $scope.savedAns;
+								$scope.prevQuest = $scope.questions[$scope.questioncount];
+								$scope.question = false;
+								$scope.answer = true;
+								$scope.questioncount = $scope.questioncount + 1;
+							}
+					//Show questions function ************************************************************
+					$scope.showQuestion = function(){
+								var numquestions = Object.keys($scope.questions).length;
+								if($scope.questioncount < numquestions){
+								$scope.selfgrade = $scope.radioB;
+								$scope.selfgradeA[$scope.gradecount] = $scope.selfgrade;
+								$scope.gradecount = $scope.gradecount + 1;
+								$scope.answertext = 'Type your answer here.';
+								$scope.question = true;
+								$scope.answer = false;
+								$scope.radioB = -1;	
+								}else{
+									$scope.selfgrade = $scope.radioB;
+									$scope.selfgradeA[$scope.gradecount] = $scope.selfgrade;
+									$scope.course_navigation=true;
+									 //save answers now
+									var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php/";
+									var parameters = {
+										currentpage:$scope.currentpage,
+										action:'saveAnswers',
+										selfgrades: JSON.stringify($scope.selfgradeA),
+										answers:JSON.stringify($scope.answerA),
+										questions:JSON.stringify($scope.questions),
+										numquestions:numquestions,
+									};
+									var config = {
+										params: parameters
+									};
+									$http.get(urltoget,config)
+											 .success(function (result) {
+											console.log(result.numinserted);
+										    
+											})
+											.error(function (data, status) {
+											 console.log("status" + status);
+											});
+								           $scope.answer = false;
+									        $scope.results = true;
+								
+								}
+							}
+						//*********************************************end the rest of the functionality					 
+					})//end success on getting users already saved answers 
+		
+                  .error(function (data, status) {
+                   console.log("status" + status);
+             });
+ 
+}]);
+//launch page controller --- probably aren't going to use this now---go figure
+myApp.controller('launchController', ['$scope','$http','$location', '$rootScope', '$uibModal', function($scope, $http, $location, $timeout, $rootScope, $uibModal ) {
+   $scope.currentpage=$location.absUrl();
+  //set divs on screen
+	$scope.userpanel = true;
+   var baseURL = window.location.protocol+"//"+window.location.host;
+   //get the coach info
+    var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getCoachInfo";
+    //get the data
+    $http.get(urltoget)
+        .success(function (result) {
+             $scope.coach_info = result;
+		})
+        .error(function (data, status) {
+            console.log(data);
+        });
+ //get the users answers if there are any and load the answer json array
+    var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getEnrolledUsers";
+    //get the data
+    $http.get(urltoget)
+        .success(function (result) {
+             $scope.classmates = result;
+        })
+        .error(function (data, status) {
+           console.log(data);
+       });
+    //handle the tiny bio submit
+    $scope.newBio = '';
+    $scope.addBio = function () {
+    var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=saveBio&newBio="+$scope.newBio;
+    console.log(urltoget);
+    $http.post(urltoget)
+            .success(function (result) {
+                   $scope.classmates = result;
+                   $scope.newBio = '';
+             })
+             .error(function (data, status) {
+              console.log(data);
+              });
+    };
+ 
+}]);
+
+
+myApp.controller('coachDashboardController', ['$scope','$http','$location', '$rootScope', '$uibModal', function($scope, $http, $location, $timeout, $rootScope, $uibModal ) {
+   $scope.currentpage=$location.absUrl();
+   var baseURL = window.location.protocol+"//"+window.location.host;
+   $scope.coursetitle="The title";
+   $scope.messagearea=false; //true if user is not supposed to be here
+	//initial load
+   $scope.classpercentpanel=true;
+   $scope.progresschartpanel=true;
+   $scope.classprogresspanel=true;
+   $scope.studentprofilepanel=true;
+   $scope.classreflectpanel=true;
+   $scope.gototopicpanel=true;
+   //click on student progress
+   $scope.studentprogresspanel=false
+   $scope.q3chartpanel=false;
+   $scope.studentdetailspanel=false;
+    $scope.qaresults=[];
+   //click on student get to know
+   $scope.message="";
+   //parse the course_id out
+   var courseid =  $scope.currentpage.split("=").pop();
+  //if the user is not the coach set every thing to not viewable set message to viewable and set message, set the title
+   var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=initializedashboard&courseid="+courseid;
+    //get the data
+    $http.get(urltoget)
+        .success(function (result) {
+             if (result['allowaccess'] == 0){
+             $scope.studentprogresspanel=false;
+             $scope.studentprofilepanel=false;
+			 $scope.chartpanel=false;
+			 $scope.gototopicpanel=false;
+             $scope.messagearea=true;
+             $scope.message="You should not be here. Only the coach for the current theme should be on this page. Good-bye.";
+			 }
+			 $scope.coursetitle=result['coursetitle'];
+        })
+        .error(function (data, status) {
+            console.log(data);
+        });
+	//show percent complete 
+	$scope.showStudentCompletionDetails=function(){
+	$scope.progresschartpanel=true;
+    $scope.q3chartpanel=false;
+	$scope.studentdetailspanel=false;
+	$scope.studentprogresspanel=false;	
+	$scope.reflectionqpanel=false;
+	$scope.classpercentpanel=true;
+    $scope.classprogresspanel=true;
+    $scope.studentprofilepanel=true;
+    $scope.gototopicpanel=true;
+	$scope.classreflectpanel=true;
+
+	}
+	//show reflection questions details
+	$scope.showStudentReflectDetails = function(){
+      var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getreflectqprogress&courseid="+courseid;  
+	  alert(urltoget);
+      $http.get(urltoget)
+       .success(function (result) {
+           $scope.reflectqresults = result;
+		   console.log(result);
+       })
+       .error(function (data, status) {
+          console.log(data);
+        });
+			$scope.progresschartpanel=false;
+			$scope.q3chartpanel=false;
+			$scope.studentprogresspanel=false;
+			$scope.studentdetailspanel=false;  
+			$scope.qaprogresspanel=false;
+			$scope.reflectionqpanel=true;
+	  }
+	//show the individual user progress area
+    $scope.showStudentProgressDetails= function(){
+	//get the individual user progress
+    var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getstudentprogress&courseid="+courseid;
+    //get the data
+    $http.get(urltoget)
+        .success(function (result) {
+             $scope.classmates = result;
+        })
+        .error(function (data, status) {
+            console.log(data);
+          });
+    $scope.progresschartpanel=false;
+    $scope.q3chartpanel=true;
+	$scope.studentprogresspanel=true;
+	$scope.studentdetailspanel=false;
+	$scope.reflectionqpanel=false;
+	}
+	//show answers to Q/A by question
+	$scope.showQADetails= function(){
+	  //get the individual user progress
+       var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getqaprogress&courseid="+courseid;  
+		//get the data
+       $http.get(urltoget)
+       .success(function (result) {
+           $scope.qaresults = result;
+       })
+       .error(function (data, status) {
+          console.log(data);
+        });
+			$scope.progresschartpanel=false;
+			$scope.q3chartpanel=true;
+			$scope.studentprogresspanel=false;
+			$scope.studentdetailspanel=false;  
+			$scope.reflectionqpanel=false;
+			$scope.qaprogresspanel=true;	  
+	  }
+	  
+	//go to the topic
+	$scope.gototopic= function(){
+       //get the first page from the course id with ajax from the courses extra record
+	 var topic_url = baseURL+"/?p=13372";
+     window.location=topic_url;
+	}
+//show the individual user profile details
+   $scope.showStudentProfileDetails= function(){
+	//get the individual user progress
+    var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getstudentprofiles&courseid="+courseid;
+    //get the data
+    $http.get(urltoget)
+        .success(function (result) {
+             $scope.classmates = result;
+			 console.log(result);
+        })
+        .error(function (data, status) {
+          console.log(data);
+         });
+	        $scope.progresschartpanel=false;
+			$scope.q3chartpanel=false;
+			$scope.studentprogresspanel=false;
+			$scope.studentdetailspanel=true;  
+			$scope.qaprogresspanel=false;	
+			$scope.reflectionqpanel=false;
+	   
+   }
+ 
+
+  //set divs on screen
+ 
+}]);
+
+
+
+
