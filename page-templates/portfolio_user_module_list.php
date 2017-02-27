@@ -42,13 +42,13 @@ get_header();
 		 }
 			if ( $courseDataItem->course_progress > 0){
 			$progressBar.="<div id=courseProgress><br><p>". $courseLogo."<h5>Your progress on the " . $courseDataItem->course_title." Module:</h5><br></p>";
-			$progressBar.= WPCW_stats_convertPercentageToBar($courseDataItem->course_progress, $courseDataItem->course_title);
+			$progressBar.= "<div style='width: 300px;'>".WPCW_stats_convertPercentageToBar($courseDataItem->course_progress, $courseDataItem->course_title)."</div>";
 			$progressBar.="<a style ='font-size:16px;' href='/user-module-progress/?courseid=".$courseDataItem->course_id ."' title='module details'>See your module details (Test scores and activities)!</a>"; 
 			if ($courseDataItem->course_progress  < 100){
-			$progressBar.="<br><span class = biggerfont>You are " . $courseDataItem->course_progress ."% finished.</span>".$courseStartPage." Continue working on this module.</a>";
+			$progressBar.="<br>".$courseStartPage." Continue working on this module.</a>";
 			}
 			else{
-			$progressBar.="<br><span class = biggerfont>Even though you have completed this module you can</span> ". $courseStartPage." go back and review it if you'd like to.</a>";
+			$progressBar.="<br>". $courseStartPage." Review the completed module</a>";
 			}
 			$progressBar.="</div>";
 			}

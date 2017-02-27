@@ -73,7 +73,7 @@ height: 240px;
 box-shadow: 5px 0px 5px #e4e2e2;
 }
 #index-half-bottom{
-width: 105%;
+width: 95%;
 height:auto;
 margin: 0 auto;
 }
@@ -98,12 +98,12 @@ line-height: 18px;
 
 #index-feature{
 text-align:center;
+width: 95%;
 }
 #index-feature li{
 padding-left: .8em;
 line-height: 18px;
 }
-
 .template_content{
 padding-top: 20px;
 padding-left: 40px;
@@ -976,14 +976,59 @@ float:right;
 text-align:left;
 display:none;
 }
-/* overrides for courseware plugin */
+/* overrides for wp_courseware plugin */
+
+#wpcw_fe_course_progress td {
+	padding: 10px 15px;
+	border: 0;
+	border-bottom: 1px solid #ddd;
+}
+.wpcw_fe_module  td{
+text-transform: uppercase;
+font-size: 16px;
+}
+#wpcw_fe_course_progress th {
+	padding: 5px 15px;
+	border: 0;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+	background-color: #F1F1F1;
+	background-image: -ms-linear-gradient(top, #F9F9F9, #DCDCDC);
+	background-image: -moz-linear-gradient(top, #F9F9F9, #DCDCDC);
+	background-image: -o-linear-gradient(top, #F9F9F9, #DCDCDC);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#F9F9F9),
+		to(#DCDCDC) );
+	background-image: -webkit-linear-gradient(top, #F9F9F9, #DCDCDC);
+	background-image: linear-gradient(top, #F9F9F9, #DCDCDC);
+	background-color: #F1F1F1;
+}
+#wpcw_fe_course td {
+	padding: 10px 15px;
+	border: 0;
+	border-bottom: 1px solid #ddd;
+	text-align: left;
+}
+
+#wpcw_fe_course .wpcw_fe_unit_none td {
+	color: #AAA;
+ text-align: left;
+}
+
+#wpcw_fe_course .wpcw_fe_unit a {
+	font-weight: bold;
+	font-size: 15px;
+}
+.sessionHeading{
+font-weight: bold;
+font-size: 15px;
+}
+
 
 #wpcw_fe_course .wpcw_fe_module td {
 	font-weight: bold;
 	color: #00225d;
 	background-color: #EBEBEB;
 }
-
 
 /* WPCW Widget Progress */
 #wpcw_fe_course .wpcw_fe_unit a {

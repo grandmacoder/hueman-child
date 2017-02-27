@@ -1,45 +1,5 @@
 <?php
-/* ------------------------------------------------------------------------- *
- *  Custom functions
-/* ------------------------------------------------------------------------- */
-/**
- * Adds a box to the main column on the Post and Page edit screens.
-
-function myplugin_add_meta_box() {
-
-	    add_meta_box(
-			'myplugin_sectionid',
-			__( 'My Post Section Title', 'wp_courseware' ),
-			'myplugin_meta_box_callback', 
-			'page', 'side'
-		);
-		
-		
-	
-}
-add_action( 'add_meta_boxes', 'myplugin_add_meta_box' );
- */
-/**
- * Prints the box content.
- * 
- * @param WP_Post $post The object for the current post/page.
- */
-function myplugin_meta_box_callback( $post ) {
-
-	// Add a nonce field so we can check for it later.
-	wp_nonce_field( 'myplugin_meta_box', 'myplugin_meta_box_nonce' );
-
-	/*
-	 * Use get_post_meta() to retrieve an existing value
-	 * from the database and use the value for the form.
-	 */
-	$value = get_post_meta( $post->ID, '_my_meta_value_key', true );
-
-	echo '<label for="myplugin_new_field">';
-	_e( 'Description for this field', 'myplugin_textdomain' );
-	echo '</label> ';
-	echo '<input type="text" id="myplugin_new_field" name="myplugin_new_field" value="' . esc_attr( $value ) . '" size="25" />';
-}
+include('legacy_wp_courseware.php');
 //****************************************************************************************************Login and Profile ************************************************************************************************
 //handle jquery login page***************************************
 //AJAX Login scripts *********************************************
@@ -1147,3 +1107,5 @@ function if_menu_enrolled_in_course( $conditions ) {
 /*----------------
 end if menu conditions
 ------------------*/
+
+

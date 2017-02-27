@@ -46,13 +46,13 @@ $slogan=$aSlogans[$sloganNum];
 <div id="index-half-bottom">
 	    <div id ="index-feature"> 
 	   <br>
-            <a class="largeBlue" href="http://transitioncoalition.org/blog/transition-coalition-self-study/">Professional Development through Self-Study</a>
+       <a class="largeBlue" href="http://transitioncoalition.org/blog/transition-coalition-self-study/">Professional Development through Self-Study</a>
 	    <p style= "text-align:center;color:#807f7f; font-weight: 500;padding-left: 20px;padding-top: 10px; font-style:italic; font-size: 15px;">
-            "Thanks again for the wonderfully organized and executed and immensely valuable Self-Study experience"<br>
-            <span style="font-style:italic; font-size: 14px;">~ Steve, Interrelated Teacher</span></p>
-      <p><strong>Enhance your transition program</strong><br>
-	  <div class="indexFeaturedListContainer">
-	  <ul class="indexFeatureList">
+       "Thanks again for the wonderfully organized and executed and immensely valuable Self-Study experience"<br>
+       <span style="font-style:italic; font-size: 14px;">~ Steve, Interrelated Teacher</span></p>
+       <p><strong>Enhance your transition program</strong><br>
+	   <div id="indexFeaturedListContainer">
+	   <ul class="indexFeatureList">
 	   <li>Online learning</li>
 	   <li>Group discussions</li>
 	   <li>Applied learning activities</li>
@@ -60,13 +60,12 @@ $slogan=$aSlogans[$sloganNum];
 	   <li>Action planning and implementations</li>
 	  </ul>
 	  <br></p>
-	    <input type="button" onClick="ga('send', 'event', { eventCategory: 'find out more', eventAction: 'button'}); self.location='http://www.transitioncoalition.org/?p=11235/';" value="Find out more!">
-       </div>
-	   </div>
+	  </div>
+	  <input type="button" onClick="ga('send', 'event', { eventCategory: 'find out more', eventAction: 'button'}); self.location='http://www.transitioncoalition.org/?p=11235/';" value="Find out more!">
+      </div>
 
 <div style="clear: both;"></div>
-	 
-	    </div>
+</div>
      <div id ="index_doublewide">    
 	<a class="largeBlue"  href="/news">News and Noteworthy</a>
 	<br>
