@@ -14,7 +14,8 @@ Template Name: Coach Dashboard Template
 ?>
 <?php
 global $wpdb;
-get_header(); 
+get_header();
+$returnPage=$_SERVER['HTTP_REFERER']; 
 ?>
 <script src="/wp-content/themes/hueman-child/highcharts/js/highcharts.js"></script>
 <script src="/wp-content/themes/hueman-child/highcharts/js/modules/drilldown.js"></script>
@@ -48,7 +49,7 @@ height: auto;
 <a href="#" id="showdiscussiontopics" title="Add a new discussion topic"><img src="/wp-content/uploads/2016/10/DiscussionTopics.png" height="100" width="100"></a>
 </div>
 <div class="content-column one_fourth one_fourth_last">
-<a href="#" id="gototopic" title="See overall progress"><img src="/wp-content/uploads/2016/10/gototopic.png" height="100" width="100"></a>
+<a href="<?php echo $returnPage;?>" title="See overall progress"><img src="/wp-content/uploads/2016/10/gototopic.png" height="100" width="100"></a>
 </div>
 
 </div>

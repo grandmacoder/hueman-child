@@ -75,7 +75,7 @@ include_once 'wp-content/plugins/wp-courseware/pdf/pdf_certificates.inc.php';
 	    if ($courseDataItem->course_id == $courseID && $courseDataItem->course_progress > 0){
 		$summaryHeader="<h3>".  $courseDataItem->course_title." Summary</h3>";
 		$progressBar.="<div id=courseProgress><h3 class=template>Your progress on the <a style='text-decoration:underline; color: #00225d;' href='". $post_test_id."'>" . $courseDataItem->course_title." Module:</a></h3>";
-		$progressBar.="<div style='width: 300px;'>". WPCW_stats_convertPercentageToBar($courseDataItem->course_progress, $courseDataItem->course_title) ."</div>";
+		$progressBar.= WPCW_stats_convertPercentageToBar($courseDataItem->course_progress, $courseDataItem->course_title);
 		$course_progress= $courseDataItem->course_progress;
 		 
 	//create a link to the certificate

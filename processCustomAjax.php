@@ -119,13 +119,13 @@ $post = array( //our wp_insert_post args
 	);
 $new_post_id = wp_insert_post($post);
 //get the network post for the course id that was sent in
-$networkPostID =$wpdb->get_var($wpdb->prepare("select unit_id from wp_wpcw_units_meta where parent_course_id = %d and unit_id in (select ID from wp_posts where post_title like '%network%')",$course_id)); 	
+$networkPostID =$wpdb->get_var("select unit_id from wp_wpcw_units_meta where parent_course_id = ". $course_id ." and unit_id in (select ID from wp_posts where post_title like '%network%')"); 
 //set the post meta on the post id that was sent in
 add_post_meta($networkPostID, 'course_unit_discussion_topics', $new_post_id); 
 if ($new_post_id > 0){$success = $new_post_id; }
 else{$success=0;}
 $returnvars = array(
-            "topic_title" =>$topic_title,
+			"topic_title" =>$topic_title,
 			"topic_description"=>$topic_description,
 			"courseid"=>$course_id,
 			"userid"=>$user_id,
@@ -171,7 +171,7 @@ print json_encode($returnvars);
 }
 else if ($_POST['action']=='get_course_main_page'){
 $courseid = $_POST['courseid'];
-$intropagepath=$wpdb->get_var($wpdb->prepare("select course_intro_page_path from wp_wpcw_course_extras where course_id = %d",$courseid));
+$intropagepath=$wpdb->get_var($wpdb->prepare("select course_start_page_path from wp_wpcw_course_extras where course_id = %d",$courseid));
 $returnarray=array("intropagepath"=>$intropagepath);
 print json_encode($returnarray);	
 }
@@ -203,7 +203,7 @@ $i=0;
 	         $avatarpath ='http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=32&amp;d=mm&amp;r=g&amp;forcedefault=1';
 	         }
 			 $selfgradeval =$answer->selfgrade;	
-			$student="<tr><td><abbr title='".$user_firstname." ".$user_lastname."' rel='tooltip'><img src='".$avatarpath."' height=30 width=30></abbr></td>";
+			$student="<tr><td><abbr title='".$user_firstname." ".$user_lastname."' rel='tooltip'><img src='".$avatarpath."' height=30 width=30></abbr><br><span style='font-size: 12px;'>". $user_firstname." ".$user_lastname."</span></td>";
             $answer="<td>". $answer->activity_value ."</td>";
         	
 				if ($selfgradeval == 1){$selfgrade="<td style='background-color:rgba(164,179,87,1);'>Mastered</td>";}

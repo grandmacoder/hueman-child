@@ -50,9 +50,10 @@ $slogan=$aSlogans[$sloganNum];
 	    <p style= "text-align:center;color:#807f7f; font-weight: 500;padding-left: 20px;padding-top: 10px; font-style:italic; font-size: 15px;">
        "Thanks again for the wonderfully organized and executed and immensely valuable Self-Study experience"<br>
        <span style="font-style:italic; font-size: 14px;">~ Steve, Interrelated Teacher</span></p>
-       <p><strong>Enhance your transition program</strong><br>
-	   <div id="indexFeaturedListContainer">
-	   <ul class="indexFeatureList">
+   
+	  <p><strong>Enhance your transition program</strong><br>
+	    <div id="indexFeaturedListContainer">
+	  <ul class="indexFeatureList">
 	   <li>Online learning</li>
 	   <li>Group discussions</li>
 	   <li>Applied learning activities</li>

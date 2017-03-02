@@ -66,17 +66,17 @@ color:#000;
 font-weight: normal;
 	
 }
-input[type=radio]:checked ~ .check {
-  border: 5px solid #3a528f;
+
+input[type=radio] + label {
+  color: #00225D;
+  font-style: normal;
+} 
+input[type=radio]:checked + label {
+  color: #000;
+  font-style: italic;
+  text-decoration:underline;
 }
 
-input[type=radio]:checked ~ .check::before{
-  background: #3a528f;
-}
-
-input[type=radio]:checked ~ label{
-  color: #3a528f;
-}
 .wpcw_fe_progress_box_wrap{
 display:none;	
 }
@@ -127,7 +127,7 @@ echo the_content();
 			     <br><br>    <table class=basic_table>
 					     <tbody>
 						 <tr>
-						 <th class="struggling"> <input type="radio" name="choice1" ng-model="radioB"  value="1" />Emerging<div class="check"></div></th><th class="practice"><input type="radio" name="choice2" ng-model="radioB"  value="2" />Proficient</th><th class="mastered"><input type="radio" name="choice3" ng-model="radioB"  value="3" />Mastered</th>
+						 <th class="struggling"> <input type="radio" name="choice1" id="choice1" ng-model="radioB"  value="1" /><label for "choice1">Emerging</label><div class="check"></div></th><th class="practice"><input type="radio" name="choice2" id="choice2" ng-model="radioB"  value="2" /><label for "choice2">Proficient</label></th><th class="mastered"><input type="radio" name="choice3" id="choice3" ng-model="radioB"  value="3" /><label for "choice3">Mastered</label></th>
 						 </th>
                          <tr>
 					     <td ng-repeat="suggAnswer in suggestAns[questioncount-1]" class="ratingsdata">

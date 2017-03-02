@@ -1,5 +1,45 @@
 <?php
-include('legacy_wp_courseware.php');
+/* ------------------------------------------------------------------------- *
+ *  Custom functions
+/* ------------------------------------------------------------------------- */
+/**
+ * Adds a box to the main column on the Post and Page edit screens.
+
+function myplugin_add_meta_box() {
+
+	    add_meta_box(
+			'myplugin_sectionid',
+			__( 'My Post Section Title', 'wp_courseware' ),
+			'myplugin_meta_box_callback', 
+			'page', 'side'
+		);
+		
+		
+	
+}
+add_action( 'add_meta_boxes', 'myplugin_add_meta_box' );
+ */
+/**
+ * Prints the box content.
+ * 
+ * @param WP_Post $post The object for the current post/page.
+ */
+function myplugin_meta_box_callback( $post ) {
+
+	// Add a nonce field so we can check for it later.
+	wp_nonce_field( 'myplugin_meta_box', 'myplugin_meta_box_nonce' );
+
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_my_meta_value_key', true );
+
+	echo '<label for="myplugin_new_field">';
+	_e( 'Description for this field', 'myplugin_textdomain' );
+	echo '</label> ';
+	echo '<input type="text" id="myplugin_new_field" name="myplugin_new_field" value="' . esc_attr( $value ) . '" size="25" />';
+}
 //****************************************************************************************************Login and Profile ************************************************************************************************
 //handle jquery login page***************************************
 //AJAX Login scripts *********************************************
@@ -1090,7 +1130,7 @@ function if_menu_enrolled_in_course( $conditions ) {
 	{return true;}
      //see if today's date  >= start date
 	$start_date = $wpdb->get_var ($wpdb->prepare( "SELECT start_date from wp_wpcw_course_extras where course_id =%d", 40));
-	$today = date('Y-m-d');
+	$today = date('Y-m-d hh:mm:ss');
     $user_is_registered = $wpdb->get_var($wpdb->prepare( "SELECT user_id FROM wp_wpcw_user_courses where course_id=%d and user_id = %d", 40, $id ));
      if ( $user_is_registered > 0  && $today >= $start_date){
 		return true;
@@ -1107,5 +1147,3 @@ function if_menu_enrolled_in_course( $conditions ) {
 /*----------------
 end if menu conditions
 ------------------*/
-
-
