@@ -347,65 +347,70 @@ var courseid=$( "div.courseid" ).text();
                    data: {'action':'get_course_percentages','courseid': courseid},
                    success: function(response){
 					if (response['hasdata'] == 0){
-					$("#progressbystudentcontainer").html(response['progressbystudent']);	
+					//$("#progressbystudentcontainer").html("");	
 					}
 					else{
 				    //draw the chart
 					$("#progressbystudentcontainer").html(response['progressbystudent']);
+			        var arr20 = response['progress'][0]['names'].split(',');
+					var arr20count=arr20.length -1;
+					var arr40 = response['progress'][1]['names'].split(',');
+					var arr40count=arr40.length -1;
+					var arr60 = response['progress'][2]['names'].split(',');
+					var arr60count=arr60.length-1;
+					var arr80 = response['progress'][3]['names'].split(',');
+					var arr80count=arr80.length-1;
+					var arr100 = response['progress'][4]['names'].split(',');
+					var arr100count=arr100.length-1;
+					//create listing by name based on %
+					var studentsbypercent="<br><h6>0-20% Complete</h6>" + response['progress'][0]['names'] +"<br><br><h6>20-40% Complete</h6>" + response['progress'][1]['names'] + "<br><br><h6>40-60% Complete</h6>" + response['progress'][2]['names'] + "<br><br><h6>60-80% Complete</h6>" + response['progress'][3]['names'] + "<br><br><h6>80-100% Complete</h6>" + response['progress'][4]['names'];
+					$("#progressbystudentcontainer").html(studentsbypercent);
 					$('#progresschartcontainer').highcharts({
-									chart: {
-									type: 'column'
-									},
-									title: {
-										text: 'Percent of LERN topic completed as a group'
-									},
-									xAxis: {
-										type: 'category'
-																},
-									yAxis: {
-																title: {
-											text: 'Percent completed'
+									    chart: {
+										type: 'pie',
+										options3d: {
+										enabled: true,
+										alpha: 45,
+										beta: 0
 										}
-
-									},
-									legend: {
-										enabled: false
-																},
-																plotOptions: {
-										series: {
-											borderWidth: 0,
-																		dataLabels: {
-																			enabled: true,
-												format: '{point.y:.1f}%'
-																			}
-																		}
-									},
-
-								tooltip: {
-								headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-								pointFormat: '<span style="color:{point.color}">{point.name}</span><br/>'
-									},
-									series: [{
-										name: '% Complete',
-										colorByPoint: true,
-										data: [{
-											name: '0%-20% completed<br>'+response['progress'][0]['names'] ,
-											y: response['progress'][0]['percent'],
-										}, {
-											name: '20%-40% completed<br>'+response['progress'][1]['names'] ,
-											y: response['progress'][1]['percent'],
-											
-										}, {
-											name: '40%-60%  completed<br>'+response['progress'][2]['names'] ,
-											y: response['progress'][2]['percent'],
-										}, {
-											name: '60%-80% completed<br>'+response['progress'][3]['names'] ,
-											y: response['progress'][3]['percent'],
-										}, {
-											name: '80%-100% completed<br>'+response['progress'][4]['names'] ,
-											y: response['progress'][4]['percent'],
+										},
+										title: {
+											text: 'LERN completion'
+										},
+										plotOptions: {
+											pie: {
+												allowPointSelect: true,
+												cursor: 'pointer',
+												depth: 35,
+												dataLabels: {
+													enabled: true,
+													format: '{point.name}'
+												}
+											}
+										},
+										series: [{
+											type: 'pie',
+											name: 'Percent of all Lerners at this level ',
+											data: [{
+											name: arr20count+ ' Lerners are 0%-20% complete.',
+											 y: Math.round(response['progress'][0]['percent']),
+											 sliced: true,
+										     selected: true
+											}, 
+											{
+											name: arr40count+ ' Lerners are 20%-40% complete.',
+											y: Math.round(response['progress'][1]['percent']),
+											}, {
+											name: arr60count+ ' Lerners are 40%-60% complete.',
+											y: Math.round(response['progress'][2]['percent']),
+											}, {
+											name: arr80count+ ' Lerners are 60%-80% complete.',
+											y: Math.round(response['progress'][3]['percent']),
+											}, {
+											name: arr80count+ ' Lerners are 80%-100% complete.',
+											y: Math.round(response['progress'][4]['percent']),
+										   }]
 										}]
-									}]
 								});
 								
 				  		}//end else there was data
@@ -484,6 +489,9 @@ var validatemsg="";
 
 //show LERN q/a by student
 $('#showqabystudent').click(function(e){
+$("#qaprogressbyquestion").hide();
+$("#qaprogressbystudent").html("<img src='/wp-content/uploads/2017/02/page-loader.gif'><br>Working on it...");
+$("#qaprogressbystudent").show();
 var baseURL = window.location.protocol+"//"+window.location.host;
 //first get percentage chart
 var urltoget = baseURL+"/wp-content/themes/hueman-child/processCustomAjax.php";
@@ -508,6 +516,9 @@ $.ajax({       type: "POST",
 });
 $('#showqabyquestion').click(function(e){
 var baseURL = window.location.protocol+"//"+window.location.host;
+$("#qaprogressbystudent").hide();
+$("#qaprogressbyquestion").html("<img src='/wp-content/uploads/2017/02/page-loader.gif'><br>Working on it...");
+ $("#qaprogressbyquestion").show();
 //first get percentage chart
 var urltoget = baseURL+"/wp-content/themes/hueman-child/processCustomAjax.php";
 var courseid=$( "div.courseid" ).text();
@@ -517,7 +528,7 @@ var courseid=$( "div.courseid" ).text();
                    data: {'action':'get_qa_by_question','courseid': courseid},
                    success: function(response){
 				    $("#qaprogressbystudent").hide();
-					$("#qaprogressbyquestion").html("<br>Completion so far: "+ response['totalfinished']+" out of "+response['totalstudents']+" students.<br><br><strong>"+response['q1']+"</strong><br><span style='background: rgba(164,179,87,1);height: auto;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;'>"+response['q1mastered']+" student(s) selected mastered. </span><br><span style='background: rgba(241,231,103,1);height: auto;padding-left: 3px;padding-bottom: 3px;'>"+response['q1proficient']+" student(s) selected proficient. </span><br><span style='background: rgba(248,80,50,1);height: auto;padding-left: 3px;padding-bottom: 3px;'>"+response['q1developing']+" student(s) selected developing.</span><br><br><strong>"+response['q2']+"</strong><span style='background: rgba(164,179,87,1);height: auto;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;'>"+response['q2mastered']+" students selected mastered. </span><br><span style='background: rgba(241,231,103,1);height: auto;padding-left: 3px;padding-bottom: 3px;'>"+response['q2proficient']+" students selected proficient. </span><br> <span style='background: rgba(248,80,50,1);height: auto;padding-left: 3px;padding-bottom: 3px;'>"+response['q2developing']+" students selected developing.</span><br>");
+					$("#qaprogressbyquestion").html("<br>Q/A completion so far: "+ response['totalfinished']+" out of "+response['totalstudents']+" lerners.<br><br><strong>"+response['q1']+"</strong><br><span style='background: rgba(164,179,87,1);height: auto;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;'>"+response['q1mastered']+" student(s) selected mastered. </span><br><span style='background: rgba(241,231,103,1);height: auto;padding-left: 3px;padding-bottom: 3px;'>"+response['q1proficient']+" student(s) selected proficient. </span><br><span style='background: rgba(248,80,50,1);height: auto;padding-left: 3px;padding-bottom: 3px;'>"+response['q1developing']+" student(s) selected developing.</span><br><br><strong>"+response['q2']+"</strong><br><span style='background: rgba(164,179,87,1);height: auto;padding-left: 3px;padding-top: 3px;padding-bottom: 3px;'>"+response['q2mastered']+" students selected mastered. </span><br><span style='background: rgba(241,231,103,1);height: auto;padding-left: 3px;padding-bottom: 3px;'>"+response['q2proficient']+" students selected proficient. </span><br> <span style='background: rgba(248,80,50,1);height: auto;padding-left: 3px;padding-bottom: 3px;'>"+response['q2developing']+" students selected developing.</span><br>");
 			        $("#qaprogressbyquestion").show();
 
 								

@@ -1,0 +1,110 @@
+var myApp = angular.module('myApp', ['rzModule','ui.bootstrap','ngSanitize']);
+myApp.controller('mainController', ['$scope','$http','$location', '$rootScope', '$timeout', '$uibModal', function($scope, $http, $location, $timeout, $rootScope, $timeout,$uibModal ) {
+	
+	
+//Slider with selection bar
+    $scope.color_slider_bar = {
+      value: 1,
+      options: {
+         showSelectionBar: true,
+      	 ceil: 5,
+         floor: 0,
+		 getSelectionBarColor: function(value) {
+          if (value <= 1)
+            return 'red';
+		 if (value <= 3)
+            return 'yellow';
+          if (value <= 5 )
+            return 'green';
+          return '#2AE02A';
+        }
+		}
+	 
+    };
+	
+    $scope.$on("slideEnded", function() {
+     // user finished sliding a handle 
+	 console.log ("done sliding " + $scope.color_slider_bar.value);
+    });
+    $scope.answerA = [];
+	$scope.selfgradeA = [];
+	$scope.slidergradeA = [];
+	$scope.radioB = '';
+	$scope.selfgrade = '';
+    $scope.answertext = 'Type your answer here';
+	$scope.prevQuest = '';
+	$scope.savedAns = '';
+	$scope.questioncount = 0;
+	$scope.gradecount = 0;
+	$scope.currentpage=$location.absUrl();
+	$scope.suggestAns= [];
+	if ($scope.currentpage == "http://wtest2.transitioncoalition.org/module-unassigned/video-and-questions/"){
+	$scope.questions = ["Q1: Why is it important to consider the environment that you will be able to offer your pet, and specifically what should you consider?", "Q2: What considerations should be made when deciding whether to get a puppy or a dog?", "Q3: What are the characteristics of a dog's breed that you should consider when deciding to get a dog for a pet?"];
+	$scope.suggestAns = [ ["The dog's enviromment will shape it's ability to thrive and be a well adjusted pet. There are many things to consider. Access to exercise and good nutrition will help your pet physically. Access to contact with people and socialization will help your dog become well adjusted emotionally. A dog also needs to be able to cope with times when he is left alone, so be sure that they can get adequate shelter, water, and food when you are not around.", "Dogs will not do well unless their needs are met including, food, shelter, and attention.", "Dogs need a place where they can be taken care of properly."],
+						  ["Whether to get a puppy or a dog is determined as much by you as the dog owner, and the pet itself. Either way, expect to spend a lot of time training the pet. A puppy offers a clean slate, whereby you can train the dog from the start. It is a mistake to think that by getting an older dog you will not have to spend time training it. All new pets take a good deal of interaction to become good pets. ", "Whether you get a puppy or a dog will depend on what you want to deal with. A puppy can be more work to begin with, but you know what you are getting. A dog can be easier to deal with. You always have to work with a new pet.", "Puppies tend to be cuter than dogs, but there are a lot of dogs that need homes. It takes time to work with a pet to help it become a good pet."],
+						  ["A dog's breed and personality characteristics will determine whether you are a good match for eachother. Learn all that you can about breeds that you are considering. Find out about the physical characteristics of the dog, particularly size and type of fur, and how that fits into the environment that you can offer your dog. The personality of the dog is important too, if the dog is high strung it will need a lot more interaction and play time than a dog that is laid back. Consider what type of person YOU are so that you come home with a pet that is conducive to your personality and lifestyle.", "A dog needs to emulate the type of person that you are compatible with. If you know that, then you can pick the right breed for a pet.", "The breed of the dog will determine whether it works out or not."]					  
+						];
+	}
+	else{
+	$scope.questions = ["Q1: What are the characteristics of a dog's breed that you should consider when deciding to get a dog for a pet? What questions should you ask yourself before selecting a dog breed?", "Q2: What types of health issues that creep up with dogs that have been bred for these characteristics, heavy long droopy ears or flat 'pug' faces?"];
+	//get the suggested answer from the database with the html from the editor box.
+	var baseURL = window.location.protocol+"//"+window.location.host;
+    var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getBestAnswers";
+	console.log(urltoget);
+	  $http.get(urltoget)
+        .success(function (result) {
+		      $scope.suggestAns1=result.suggestedAns1;
+			  $scope.suggestAns2=result.suggestedAns2;
+			 console.log($scope.suggestAns1);
+			 console.log($scope.suggestAns2);
+	     })
+        .error(function (data, status) {
+              console.log("status" + status);
+        });
+	
+	}
+	$scope.answer = false;
+	$scope.results = false;
+	$scope.question = true;
+	$scope.currentpage=$location.absUrl();
+	
+	var baseURL = window.location.protocol+"//"+window.location.host;
+    var urltoget = baseURL+"/wp-content/themes/hueman-child/AngularAPI/processAngular.php?currentpage="+$scope.currentpage+"&action=getQA";
+	  $http.get(urltoget)
+        .success(function (result) {
+              $scope.userid=result.ID;
+		 })
+        .error(function (data, status) {
+              console.log("status" + status);
+        });
+		
+		
+        $scope.showAnswer = function(){
+		$scope.savedAns = $scope.answertext;
+		$scope.answerA[$scope.questioncount] = $scope.savedAns;
+		$scope.prevQuest = $scope.questions[$scope.questioncount];
+		$scope.question = false;
+		$scope.answer = true;
+		$scope.questioncount = $scope.questioncount + 1;
+		
+	}
+	$scope.showQuestion = function(){
+		if($scope.questioncount < $scope.questions.length ){
+		$scope.selfgrade = $scope.radioB;
+		$scope.selfgradeA[$scope.gradecount] = $scope.selfgrade;
+		$scope.slidergradeA[$scope.gradecount]= $scope.color_slider_bar.value;
+		$scope.gradecount = $scope.gradecount + 1;
+		$scope.answertext = 'Type your answer here';
+		$scope.question = true;
+		$scope.answer = false;
+		}else{
+		    $scope.selfgrade = $scope.radioB;
+			$scope.slidergradeA[$scope.gradecount]= $scope.color_slider_bar.value;
+			$scope.selfgradeA[$scope.gradecount] = $scope.selfgrade;
+	         //save answers now
+            $scope.answer = false;
+			$scope.results = true;
+		}
+	}
+   
+}]);

@@ -240,7 +240,7 @@ $i=0;
 	         $avatarpath ='http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=32&amp;d=mm&amp;r=g&amp;forcedefault=1';
 	         }
 			 $selfgradeval =$answer->selfgrade;	
-			$student="<tr><td><abbr title='".$user_firstname." ".$user_lastname."' rel='tooltip'><img src='".$avatarpath."' height=30 width=30></abbr></td>";
+			$student="<tr><td><abbr title='".$user_firstname." ".$user_lastname."' rel='tooltip'><br><span style='font-size: 12px;'>". $user_firstname." ".$user_lastname."</span><img src='".$avatarpath."' height=30 width=30></abbr></td>";
             $answer="<td>". $answer->activity_value ."</td>";
         	
 				if ($selfgradeval == 1){$selfgrade="<td style='background-color:rgba(164,179,87,1);'>Mastered</td>";}

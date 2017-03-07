@@ -7,12 +7,22 @@ Template Name: Coach Dashboard Template
 <?php get_header(); 
   if(isset($_GET['course_id']) && is_numeric($_GET['course_id'])){
 	$courseid = $_GET['course_id']; //from the url
+	$isCoach=0;
+	$currentuserid=get_current_user_id();
+	//see if the user is a coach
+	$isCoach=tc_getLERNcoach($courseid,$currentuserid);
+	//redirect if the user is not a coach
+
+	if (current_user_can('manage_options')){
+		//just check to let this user in and avoid the else if
+	}
+	else if ($isCoach == 0 ) { 
+			header("Location: /");
+		}
 	}else{
 		header("Location: /");
 		exit();
 	}
-?>
-<?php
 global $wpdb;
 get_header();
 $returnPage=$_SERVER['HTTP_REFERER']; 
