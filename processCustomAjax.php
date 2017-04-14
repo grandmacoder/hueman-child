@@ -620,7 +620,7 @@ $returnvars = array(
           );
 print json_encode($returnvars);
 }
-//handle if it is the summary sheet pop up
+//handle if it is the summary sheet pop up for modules
 else if ($_POST['action']  =='get_summary_sheet_data'){
 $course_id=$_POST['course_id'];
 $user_id=$_POST['user_id'];
@@ -654,7 +654,6 @@ $header.=$user_info->first_name ." ". $user_info->last_name ."<br>";
 $header.=$user_info->user_email ."<br>";
 $header.="State: ". $user_info->state ."<br>";
 $header .= $quiz_summary."<br><br>";
-
 $activityRows = $wpdb->get_results($wpdb->prepare("select module_title,activity_id, post_id,activity_value,description from 
 					wp_course_activities a, 
 					wp_wpcw_user_progress u,
@@ -726,6 +725,89 @@ $activityRows = $wpdb->get_results($wpdb->prepare("select module_title,activity_
 		   }//end if checklists
 echo $header. $activityContent . $checklistContent;
 }
+//handle if it is the summary sheet pop up for LERN
+else if ($_POST['action']  == 'get_lern_summary_sheet_data'){
+$course_id=$_POST['course_id'];
+$user_id=$_POST['user_id'];
+//get the course information
+$course_title = $wpdb->get_var("SELECT course_title FROM `wp_wpcw_courses` where course_id =".$course_id);
+$header .= "<strong>". $course_title ." Summary Sheet </strong><br>";
+$i = 0;
+//get the user information for the header
+$user_info = get_userdata($user_id);
+$header.=$user_info->first_name ." ". $user_info->last_name ."<br>";
+$header.=$user_info->user_email ."<br>";
+$header.="State: ". $user_info->state ."<br>";
+$header .= $quiz_summary."<br><br>";
+$activityRows = $wpdb->get_results($wpdb->prepare("select module_title,activity_id, post_id,activity_value,description from 
+					wp_course_activities a, 
+					wp_wpcw_user_progress u,
+					wp_wpcw_units_meta m, 
+					wp_wpcw_modules c
+					where 
+					u.user_id = a.user_id
+					and
+					u.unit_id = a.post_id
+					and
+					u.unit_id = m.unit_id
+					and
+					a.post_id = m.unit_id
+					and
+					m.parent_course_id and c.parent_course_id
+					and 
+					m.parent_module_id = c.module_id
+					and 
+					page_order > 0 
+					and
+					a.user_id = ". $user_id ."
+					and
+					m.unit_id in (Select unit_id from wp_wpcw_units_meta where parent_course_id = %d) order by module_id",$course_id, OBJECT)); 
+	  $num_activities = $wpdb->num_rows;
+	//get the posts that have checkbox items on them from the matrix table
+    $checkboxPosts=$wpdb->get_results('select distinct(post_id) as post_id from wp_course_matrix where post_id in (Select unit_id from wp_wpcw_units_meta where parent_course_id ='.$courseID.') order by matrix_name', OBJECT);	
+	 $num_checkbox_activities = $wpdb->num_rows;
+	 if ($num_activities > 0){
+	 $module_title="";
+	 $prev_module_title="";;
+	  foreach ($activityRows as $item){
+	   $module_title=$item->module_title;
+		if ($module_title <> $prev_module_title){
+		$activityContent.="<h4 class = 'summary_sheet_session'>". $module_title."</h4>";
+		}
+		$activityContent.="<p><strong>" . $item->description ."</strong><br><span style='margin-left: 30px;'><strong>Response:</strong> " . $item->activity_value."</span></p>";
+		$prev_module_title=$module_title;
+	}
+	}
+        else{
+       $activityContent.="<p>There were no activities with saved responses for ". $moduleName ."</p>";
+	}//end if activities
+	//see if there are any checkbox activities
+	//get the posts that have checkbox items on them from the matrix table
+     $check_box_posts = $wpdb->get_results($wpdb->prepare('select distinct(post_id) as post_id from wp_course_matrix where post_id in (Select unit_id from wp_wpcw_units_meta where parent_course_id =%d) order by matrix_name', $course_id),OBJECT);
+	$num_checkbox_activities = sizeof($check_box_posts);
+	if ($num_checkbox_activities > 0){
+		     foreach($check_box_posts as $cbxpost){
+					//get the checkbox items per post and the answers per user
+					$userCheckboxSelections = $wpdb->get_row($wpdb->prepare("select * from wp_course_activities where post_id =%d and user_id=%d and description=%s",$cbxpost->post_id, $user_id,''));
+					$sSelections = $userCheckboxSelections->activity_value;
+					$aSelectedValues =  explode(',',$sSelections);
+					//get the check box checked by user when doing the activity module
+					$checklistItem = $wpdb->get_results($wpdb->prepare("select * from wp_course_matrix where post_id = %d and matrix_type=%s",$cbxpost->post_id, "checklist", OBJECT));
+					                $i=0;
+							foreach ($checklistItem as $item){
+							if (in_array($i,$aSelectedValues)){$bChecked='checked';}
+								else {$bChecked='';
+								}
+							if ($i == 0){
+							$checklistContent.="<hr><h4>Checklist items for " .$item->heading ."</h4>";
+							}
+							$checklistContent.="<p><input type='checkbox' class='cbo_summary_sheet' id='". $i . "' name='compare' ". $bChecked."/><label id='label_" . $item->item_text . "' for='". $i . "'><span></span>". $item->item_text  ."</label>";
+							$i++;
+							}
+					}
+		   }//end if checklists
+echo $header. $activityContent . $checklistContent;
+}
 //handle if the user wants to send a summary of their module to someone via email
 elseif ($_POST['action'] == 'send_summary_email'){
 $to = $_POST['sendto'];
@@ -745,6 +827,25 @@ $message = '<html><body>'.$summaryHeading.stripslashes($htmlBody)."</body></html
 $bMailSent = mail($to, $subject, $message, $headers);
 echo "Success!";
 }
+//handle if the user wants to send a summary of their LERN to someone via email
+elseif ($_POST['action'] == 'send_lern_summary_email'){
+$to = $_POST['sendto'];
+$htmlBody = $_POST['message'];
+$courseid = $_POST['courseid'];
+//get the name of the course
+$coursename=$wpdb->get_var($wpdb->prepare("Select course_title from wp_wpcw_courses where course_id=%d", $courseid));
+//get some user information for the heading of the email
+$current_user = wp_get_current_user();
+$summaryHeading="<p>".  $coursename . " summary for : " . $current_user->user_firstname . " " . $current_user->user_lastname."</p><p>Email: " . $current_user->user_email."</p>";
+$subject = 'Transition Coalition post test and module summary for ' . $current_user->user_firstname . " " . $current_user->user_lastname ;
+$headers = "From: transition@transitioncoalition.org\r\n";
+$headers .= "Reply-To:transition@transitioncoalition.org\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+$message = '<html><body>'.$summaryHeading.stripslashes($htmlBody)."</body></html>";
+$bMailSent = mail($to, $subject, $message, $headers);
+echo "Success!";
+}
 //handle changing the users group if they change their state or role
 else if ($_POST['action'] == 'setGroup'){
 $userID = get_current_user_id();
@@ -752,23 +853,11 @@ $userstate = $_POST['userstate'];
 $userrole = $_POST['userrole'];
 if ($userstate <> ""){
 //query for deleting user member from all groups term_taxonomy_id 51=KS, 202=GA, 52=MO, 364=VA and term_id 56=KS, 207=GA, 57=MO, 372=VA
-$deleteGroups = $wpdb->query("delete from wp_term_relationships where object_id = ". $userID  ." and term_taxonomy_id in (51,202,52,364)");
-//now add relationship for the current state.
-//if the state is KS add them to KS group
-         if ($userstate == 'KS'){
-		wp_set_object_terms($userID, 56, 'user-group',true);
-         }		 
-//if state is GA add them to GA group
-         if ($userstate == 'GA'){
-		 wp_set_object_terms($userID, 207, 'user-group',true);
-         }
+$deleteGroups = $wpdb->query("delete from wp_term_relationships where object_id = ". $userID  ." and term_taxonomy_id in (51,202,52,364,57)");
 //if the state is MO add them to MO group
-         if ($userstate == 'MO'){
-		 wp_set_object_terms($userID, 57, 'user-group',true);
-         }
-		 if ($userstate == 'VA'){
-		 wp_set_object_terms($userID, 372, 'user-group',true);
-         }
+if ($userstate == 'MO'){
+wp_set_object_terms($userID, 57, 'user-group',true);
+}
 }
 else if ($userrole <> ""){
 $deleteGroups = $wpdb->query("delete from wp_term_relationships where object_id = ". $userID  ." and term_taxonomy_id =38");

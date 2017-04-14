@@ -1,9 +1,8 @@
 <?php
 /*
-Template Name: portfolio lern topics
+Template Name: portfolio user lern list
 */
 /**
- * shows the LERN topics that a user is signed up for 
  *
  * @package WordPress
  */
@@ -15,60 +14,45 @@ Template Name: portfolio lern topics
 get_header();
 ?>
 <style>
-.biggerfont{font-size: 16px;}
-a:link {color:#537c1b; font-weight: 500;}
-a:visited {color:#537c1b; font-weight: 500;}
-a:hover {color:#3b8dbd; font-weight: 500; text-decoration:underline; }
+.biggerfont{font-size: 15px;}
 </style>
 <?php
+	global $wpdb;
         $referring_page =$_SERVER['HTTP_REFERER'];
         $userID = get_current_user_id();
-		$numCourses = 0;
-		 $hasLERNmsg="";
 	//get the extra values for the course --- need to automate this later.
 	//course logo image, course start page, 
 	//will get all course data for the user, we weed it out in the foreach
 	    $courseData = WPCW_users_getUserCourseList($userID);
-        if ($courseData){
-         foreach ($courseData as $courseDataItem) {   //if it is the module id passed in and there has been some progress
+      if ($courseData){
+     foreach ($courseData as $courseDataItem) {   //if it is the module id passed in and there has been some progress
 	   //get the course extra fields
 	   $courseExtraRow=tc_portfolio_user_module_list_get_course_extra_fields($courseDataItem->course_id);
-	   $reviewpagesIDs=tc_portfolio_user_lern_get_review_ids($courseDataItem->course_id);
-	   $progressBar.="<div>";
+	   
 	  //if learning module
-	  if ($courseExtraRow->course_type =='LERN'){
-           $start_date = $courseExtraRow->start_date;
-           $today =date('Y-m-d 00:00:00');
-          $formatdate=date_create($start_date);
-           $startdate =date_format($formatdate,"M. d, Y");		   
-	      $hasLERNmsg="<p>Below you will find all the LERN topics you that you are working on or have completed.<br></p>";
-		  $progressBar .= "<img src='". $courseExtraRow->course_logo_path."'><div style='clear:both;'></div>";
-			//if the start date for the lern has not occurred yet, show the logo and the start date
-			if ($start_date > $today){
-			$progressBar .= "<p>This course has not started yet. It will be available on ".   $startdate .".</p>";
-			//otherwise show the logo/completion/and details
+	  if ($courseExtraRow->course_type =='LERN'){ 
+		 //get the last item that the user was working on.
+		 $nextToCompleteID = tc_portfolio_user_module_list_get_activity($userID, $courseDataItem->course_id);
+		 if ($courseExtraRow->course_start_page_path <> ""){
+		 $courseLogo="<img src='". $courseExtraRow->course_logo_path."' class=alignleft>";
+		 }
+		 if ($courseExtraRow->course_start_page_path  <> ""){
+		 $courseStartPage = "<a style ='font-size:15px;' title='module start page' href='". $courseExtraRow->course_start_page_path ."'>";
+		 }
+			if ( $courseDataItem->course_progress > 0){
+			$progressBar.="<div id=courseProgress><br><p>". $courseLogo."<br>";
+			$progressBar.= "<div style='width: 50%;'>".WPCW_stats_convertPercentageToBar($courseDataItem->course_progress, $courseDataItem->course_title) ."</div>";
+			$progressBar.="<a style ='font-size:16px;' href='/my-lerns/?courseid=".$courseDataItem->course_id ."' title='module details'>Review ".$courseDataItem->course_title."!</a>"; 
+			$progressBar.="</div>";
 			}
-			else{
-			    if ( $courseDataItem->course_progress > 0){
-				$progressBar.= WPCW_stats_convertPercentageToBar($courseDataItem->course_progress, $courseDataItem->course_title);
-				}
-				if ($courseDataItem->course_progress  < 100){
-				$progressBar.="<span class = biggerfont>You are " . $courseDataItem->course_progress ."% finished.</span><a href='". $courseExtraRow->course_start_page_path ."' title='continue working on lern topic'> Continue working on this lern topic.</a>";
-				}
-				else if ($courseDataItem->course_progress == 100){
-				$progressBar .= "<a href='/?p=".$reviewpagesIDs[0]. "' title='Go to Q/A'>Review your Q/A</a><br><a href='/?p=".$reviewpagesIDs[1]. "' title='Go to Next Steps'>Review your Next Steps</a><br><a href='/?p=".$reviewpagesIDs[2]. "' title='Go to Resources'>Review resources</a>";
-				}
-			}
-				$progressBar.="</div>";
-				 $numCourses++;
-				}
-	  
-		  //end if is lern
-		}//end foreach course
+		//end if is learning module 
+		}
+		}
       }
-     //reset the string if there are no LERN courses for the user
-     if ($numCourses == 0)  {$progressBar ="<span class = biggerfont>It looks like you have not started any LERN topics.</span><br><a href='/lern-series/' title='Go to the LERN series'>Go to our LERN series and catch the next registration date!</a>.";}
-
+       else{
+       $progressBar .="<h3 class=template>You have not started LERN topics yet.</h3>Go to our modules listing to <a href='/lern-series/' title='Go to LERN listing'>start your professional development training</a>.";
+      }
+	
        ?>
 <section class="content">
 <div class="template_content">
@@ -76,7 +60,6 @@ a:hover {color:#3b8dbd; font-weight: 500; text-decoration:underline; }
 <br>
 <article>
 <?php the_content(); 
-echo $hasLERNmsg;
 echo $progressBar;
 ?>		
 </article>

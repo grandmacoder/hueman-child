@@ -11,6 +11,7 @@ $aSlogans= array('Enter to Learn. Leave to Deliver.',
 $sloganNum=rand(0,6);
 $slogan=$aSlogans[$sloganNum]; 
 ?>
+<style>a.largeBlue:link{font-size: 19px; letter-spacing: -0.5px; color:#00225D; font-weight: bold;}</style>
 <!-- add the js for the slider only -->
  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700' rel='stylesheet' type='text/css'>
 <!-- Owl Carousel Assets   imported into the main style.css -->   
@@ -43,47 +44,35 @@ $slogan=$aSlogans[$sloganNum];
 		?>
          </div>
 		 
-<div id="index-half-bottom">
+
+<!-- feature items -->
 <div class="content-column one_half">
-<br>
-<img src="/wp-content/uploads/2017/02/screening_tool.png" height="50" width="50" style="vertical-align:middle" ><a class="largeBlue" href="/?p=18483/" >Focus on School Completion</a>
-<p><br><strong>We're your source!</strong></p>
-<ul class="indexFeatureList">
-<li>Rural Guide</li>
-<li>Ask the Expert</li>
-<li>Coming soon! School completion learning module</li>
-</ul>
-<br>
-<br>
+<div style="height:auto; padding:5px; margin:5px; box-shadow: 6px 6px 5px #888888; background-color: #eaf7d8;">
+<a class="largeBlue"  href="#">TC heads up school completion!</a><br>
+<center><img src="http://wtest.transitioncoalition.org/wp-content/uploads/2017/04/schooEngagementStrategy.png" style="height:114px; width:250px;" ></center>
+<p><strong> We're your source! </strong>Find useful strategies for mentoring, after-school programs, and service learning, just to name a few. </p>
 <input type="button" onClick="ga('send', 'event', 'category', 'action', { eventCategory: 'find out more', eventAction: 'button', eventLabel: 'Front Page: find out more school completion'}); self.location='/?p=18483/';" value="Find out more!">
 </div>
+</div>
 <div class="content-column one_half">
-<div style="margin:left: 15px;">
-<br>
-<img src="/wp-content/uploads/2017/03/SelfStudyIcon.png" height="50" width="50" style="vertical-align:middle"><a class="largeBlue" href="/?p=11235/">Professional Development through Self-Study</a>
-<p><strong>Enhance your transition program</strong></p>
-<ul class="indexFeatureList">
-	   <li>Online learning</li>
-	   <li>Group discussions</li>
-	   <li>Applied learning activities</li>
-	   <li>Data driven analysis of your current practices</li>
-	   <li>Action planning and implementations</li>
-</ul>
-<br>
-      <input type="button" onClick="ga('send', 'event', 'category', 'action', { eventCategory: 'find out more', eventAction: 'button', eventLabel: 'Front Page: find out more self study'}); self.location='/?p=11235/';" value="Find out more!">
+<div style="height:auto;padding:5px; margin:5px;box-shadow: 6px 6px 5px #888888; background-color: #fee2c8; text-align:top">
+<a class="largeBlue"  href="#">PD through Self-Study!</a><br>
+<img class="alignleft" src="http://transitioncoalition.org/wp-content/uploads/2015/07/SelfStudyIcon-150x150.png" height="50" width="50" >
+<p style="line-height:13px;"><strong>A sentence here that describes self study (Allison?)</strong><br>
+<br><br><br><center><em>"Thanks again for the wonderfully organized and executed and immensely valuable Self-Study experience" ~ Steve, Interrelated Teacher</em></center>
+<br><strong>Enhance your transition program now!</strong></p>
+<input type="button" onClick="ga('send', 'event', 'category', 'action', { eventCategory: 'find out more', eventAction: 'button', eventLabel: 'Front Page: find out more self study'}); self.location='/?p=11235/';" value="Find out more!">
 </div>
 </div>
 <div class="clear_column"></div>
-
-
 <div style="clear: both;"></div>
-</div>
+
      <div id ="index_doublewide">    
 	<a class="largeBlue"  href="/news">News and Noteworthy</a>
-	<br>
+	<br><br>
 	<?php
 	$args = array(
-	'posts_per_page'   => 6,
+	'posts_per_page'   => 3,
 	'category'         => 38,
 	'orderby'          => 'id',
 	'order'            => 'DESC',
