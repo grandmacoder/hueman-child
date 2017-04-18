@@ -26,24 +26,10 @@ $slogan=$aSlogans[$sloganNum];
     <link rel="apple-touch-icon-precomposed" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/ico/apple-touch-icon-57-precomposed.png">
 <section class="content">
 <div class="pad group">
-	<div id="indexTop">
-     <?php echo $slogan;?>
-	</div> <!--end top of index -->			 
-	<div id="indexCarousel">
-	<div id="owl-demo" class="owl-carousel">
-	         <?php if ( have_posts() ) : 
-                  while ( have_posts()): the_post();
-				?>
-				<div class="item">
-				 <a href="<?php the_permalink();?>" onClick="ga('send', 'event', { eventCategory: 'slider link', eventAction: 'slider article', eventLabel: '<?php the_title(); ?>'});"><?php the_post_thumbnail();?></a>
-		         <a href="<?php the_permalink();?>" onClick="ga('send', 'event', { eventCategory: 'slider link', eventAction: 'slider article', eventLabel: '<?php the_title(); ?>'});"><?php the_excerpt(); ?></a>
-		         </div>
-			 <?php
-				endwhile; 
-			 endif;
-		?>
-         </div>
-		 
+<div id="indexTop">
+<?php echo $slogan;?>
+</div> <!--end top of index -->			 
+	
 
 <!-- feature items -->
 <div class="content-column one_half">
@@ -65,9 +51,30 @@ $slogan=$aSlogans[$sloganNum];
 </div>
 </div>
 <div class="clear_column"></div>
-<div style="clear: both;"></div>
 
-     <div id ="index_doublewide">    
+<div id="indexCarousel">
+	<div id="owl-demo" class="owl-carousel">
+	         <?php if ( have_posts() ) : 
+                  while ( have_posts()): the_post();
+				?>
+				<div class="item">
+				 <a href="<?php the_permalink();?>" onClick="ga('send', 'event', { eventCategory: 'slider link', eventAction: 'slider article', eventLabel: '<?php the_title(); ?>'});"><?php the_post_thumbnail();?></a>
+		         <a href="<?php the_permalink();?>" onClick="ga('send', 'event', { eventCategory: 'slider link', eventAction: 'slider article', eventLabel: '<?php the_title(); ?>'});"><?php the_excerpt(); ?></a>
+		         </div>
+			 <?php
+				endwhile; 
+			 endif;
+		?>
+</div>
+		 
+
+
+
+
+
+
+<div style="clear: both;"></div>
+    <div id ="index_doublewide">    
 	<a class="largeBlue"  href="/news">News and Noteworthy</a>
 	<br><br>
 	<?php

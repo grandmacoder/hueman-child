@@ -18,7 +18,7 @@ get_header();
 	$user_role = get_user_meta($current_id, 'transition_profile_role', true);
 	$user_email = $current_user->user_email;
 	//category ids
-	$category_a = array(153,157,161,165,169,193,197);
+	$category_a = array(153,157,161,165,169,193,197,519);
 
 	//get category ids for the learning module
 	$parent_categories = tc_learning_module_library_get_catergories($category_a);

@@ -994,18 +994,15 @@ Student progress on lern, pop up a summary sheet on my lerns
 */
 if (current_page.indexOf('my-lerns') > -1) {
 $(".print_summary_sheet").click(function(event) {
-	alert ("clicked function");
 event.preventDefault();
 //get the data for the dialog box
 var course_id = $(this).data('courseid');
 var user_id = $(this).data('userid');
-alert ("vars" + course_id + user_id);
 var baseURL = window.location.protocol+"//"+window.location.host;
 var urltoget = baseURL+"/wp-content/themes/hueman-child/processCustomAjax.php";
  //return the html string for the dialog box
 	$.post(urltoget, {'action':'get_lern_summary_sheet_data','user_id':user_id,'course_id':course_id}, function(ret){
      var summary_html = ret;
-	 alert(ret);
       //create the dialog and set up the print
 	$("#summary_sheet").dialog(
 	{

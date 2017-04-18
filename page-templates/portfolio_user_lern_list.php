@@ -20,15 +20,15 @@ get_header();
 	global $wpdb;
         $referring_page =$_SERVER['HTTP_REFERER'];
         $userID = get_current_user_id();
+		$hasLern=0;
 	//get the extra values for the course --- need to automate this later.
 	//course logo image, course start page, 
 	//will get all course data for the user, we weed it out in the foreach
 	    $courseData = WPCW_users_getUserCourseList($userID);
-      if ($courseData){
+     if ($courseData){
      foreach ($courseData as $courseDataItem) {   //if it is the module id passed in and there has been some progress
 	   //get the course extra fields
 	   $courseExtraRow=tc_portfolio_user_module_list_get_course_extra_fields($courseDataItem->course_id);
-	   
 	  //if learning module
 	  if ($courseExtraRow->course_type =='LERN'){ 
 		 //get the last item that the user was working on.
@@ -46,14 +46,14 @@ get_header();
 			$progressBar.="</div>";
 			}
 		//end if is learning module 
+		$hasLern++;
 		}
 		}
       }
-       else{
-       $progressBar .="<h3 class=template>You have not started LERN topics yet.</h3>Go to our modules listing to <a href='/lern-series/' title='Go to LERN listing'>start your professional development training</a>.";
-      }
-	
-       ?>
+if ($hasLern == 0){
+$progressBar .="<h6>You have not started any LERN topics yet.</h6>Go to our lern listing to <a href='/lern-series/' title='Go to LERN listing'>sign up for current LERN topics.</a>.";
+}    
+?>
 <section class="content">
 <div class="template_content">
 <h3><span>My LERNs</span></h3>

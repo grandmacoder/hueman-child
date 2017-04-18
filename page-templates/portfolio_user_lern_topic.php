@@ -47,7 +47,7 @@ a:hover {color:#3b8dbd; font-weight: 500; text-decoration:underline; }
 		   $percentComplete=$courseDataItem->course_progress;
 		  //get the course extra fields
 		  $courseExtraRow=tc_portfolio_user_module_list_get_course_extra_fields($courseDataItem->course_id);
-$progressBar.="<div>";
+          $progressBar.="<div>";
           //course activity text area answers
 	       $activityAnswers = tc_portfolio_module_get_activity_answers($userID, $courseDataItem->course_id);
 		   $num_activities = sizeof($activityAnswers);
@@ -75,8 +75,7 @@ $progressBar.="<div>";
 				$progressBar.="<h6>Your LERN activities <a class='print_summary_sheet' href='#' data-courseid='".$courseDataItem->course_id."' data-userid='".$userID."' title='View and print summary sheet'><img src='wp-content/uploads/2015/05/summary_sheet_icon.png' height='30' width='20'></a></h6>";
 				}
 			}
-
-			$progressBar.="</div>";
+            $progressBar.="</div>";
 			$numCourses++;
 		  //output the activities and answers if there are any
 		   if ($num_activities > 0){
