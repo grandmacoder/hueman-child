@@ -27,7 +27,7 @@ get_header();
 <div id="qi_wpProQuiz_results"> </div> 
 
 <div id="qi_footer_info">
-<span style="font-size: 12px; "></br></br>	Morningstar, M.E. Erickson, A.G., Lattin, D.L. & Lee, H. (Revised June, 2012). Quality indicators of exemplary transition programs needs assessment summary [Assessment tool]. Lawrence, KS. University of Kansas, Department of Special Education. Retrieved from <a href="http://www.transitioncoalition.org">www.transitioncoalition.org</a>
+<span style="font-size: 12px; "></br></br>	Morningstar, M.E. Erickson, A.G., Lattin, D.L. & Lee, H. (Revised June, 2012). Quality indicators of exemplary transition programs needs assessment summary [Assessment tool]. Lawrence, KS. University of Kansas, Department of Special Education. Retrieved from <a href="https://www.transitioncoalition.org">www.transitioncoalition.org</a>
 		<br/><br/>
 		<div align=center>Copyright &copy;2012</div>
 </span></div><!--/.form wrapper_style-->

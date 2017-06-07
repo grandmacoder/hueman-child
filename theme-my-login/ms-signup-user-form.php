@@ -26,7 +26,7 @@ $role_options .= "<option value='".$tc_role."'>".$tc_role."</option>";
 }
 ?>
 <script src="<?php bloginfo('template_directory');?>-child/theme-my-login/tml-js/register-profile.js" type="text/javascript"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js" type="text/javascript"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js" type="text/javascript"></script>
 
 <h2><?php printf( __( 'Join %s and start learning!' ), $current_site->site_name ); ?></h2>
 

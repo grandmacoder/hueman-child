@@ -26,7 +26,7 @@ Template Name: tc materials 2
 	$args1 = array(
 	'posts_per_page'   => -1,
 	'category'         => $cat_id,
-	'orderby'          => 'ID',
+	'orderby'          => 'post_date',
 	'order'            => 'DESC',
 	'post_type'         => array('post','tc_materials'),
 	'post_status'      => 'publish',

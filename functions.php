@@ -120,13 +120,13 @@ add_action('wp_login', 'set_last_login');
 //add admin action for loading jquery ui on dashboard
 add_action( 'admin_enqueue_scripts', 'enqueue_jqueryui' );
 function enqueue_jqueryui($hook) {
-wp_enqueue_script( 'my_custom_script', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js');
+wp_enqueue_script( 'my_custom_script', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js');
 }
 function angularjs_scripts() {
 	wp_enqueue_style( 'angular-slider', get_stylesheet_directory_uri(). '/AngularCSS/rzslider.css' );
 	wp_enqueue_script(
 		'angularjs',
-		'http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js'
+		'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js'
 	);
 	wp_enqueue_script(
 		'sanitizeangularjs',
