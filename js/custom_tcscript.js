@@ -1026,7 +1026,7 @@ var urltoget = baseURL+"/wp-content/themes/hueman-child/processCustomAjax.php";
 Student progress on modules pop up a summary sheet on my modules
 -------------------
 */
-if (current_page.indexOf('student-progress') > -1 || current_page.indexOf('user-module-progress') > -1 ) {
+if (current_page.indexOf('student-progress') > -1 || current_page.indexOf('user-module-progress') > -1 || current_page.indexOf('self-study-progress') > -1  ) {
 $(".print_summary_sheet").click(function(event) {
 event.preventDefault();
 //get the data for the dialog box
