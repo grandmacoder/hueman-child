@@ -6,22 +6,11 @@
 	
 */
 jQuery(document).ready(function($) {
-$('#qi_popup_terms').click(function(e){
-$.fancybox({
-		'href': '#QI_info_statement',
-        'titleShow'  : false,
-		'width':800,
-        'height':700,
-        'autoSize' : false,
-        'transitionIn'  : 'fade',
-        'transitionOut' : 'fade'
-});
-return false;
-});
+	
 $('#submitnewsletter').click(function(e){
-	e.preventDefault;
+e.preventDefault;
 $.fancybox({
-		 href: "http://wtest2.transitioncoalition.org/mailchimp-subscribe-form/",
+		 href: "https://www.transitioncoalition.org/mailchimp-subscribe-form/",
          type: "iframe",
 		  scrolling : "no",
 		  height:600,
@@ -30,9 +19,8 @@ $.fancybox({
 });
 return false;
 });
-
-	/*flip nav */	
-  $(".flipnav li a").on("click", function() {
+/*flip nav */	
+	$(".flipnav li a").on("click", function() {
   var activeTab = $(this).attr("href");
   $('#card > div').removeClass('flipped after before');
   $(activeTab).addClass('flipped');
@@ -40,7 +28,7 @@ return false;
   $(activeTab).nextAll('.flipper').addClass('after');
   return false;
 });
-$('a.openwin').click(function(e) {
+ $('a.openwin').click(function(e) {
 	 e.preventDefault();
      newwindow=window.open($(this).attr('href'),'','height=600,width=850');
 		if (window.focus) {newwindow.focus()}
@@ -103,9 +91,6 @@ $( window ).resize( function () {
   });
 // Resize to fix all iframes on page load.
 }).resize();
-
-
-
 /*
 -------------------------
 custom tooltip options
@@ -1828,6 +1813,7 @@ var ajaxURL = baseURL +'/wp-content/themes/hueman-child/processCustomAjax.php?ac
 xhr.open('GET', ajaxURL, true);
 xhr.send(null);
 }
+
 
 					
 					

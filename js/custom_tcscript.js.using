@@ -6,33 +6,8 @@
 	
 */
 jQuery(document).ready(function($) {
-$('#qi_popup_terms').click(function(e){
-$.fancybox({
-		'href': '#QI_info_statement',
-        'titleShow'  : false,
-		'width':800,
-        'height':700,
-        'autoSize' : false,
-        'transitionIn'  : 'fade',
-        'transitionOut' : 'fade'
-});
-return false;
-});
-$('#submitnewsletter').click(function(e){
-	e.preventDefault;
-$.fancybox({
-		 href: "http://wtest2.transitioncoalition.org/mailchimp-subscribe-form/",
-         type: "iframe",
-		  scrolling : "no",
-		  height:600,
-		  autoHeight: false,
-		  autoScale: false,
-});
-return false;
-});
-
-	/*flip nav */	
-  $(".flipnav li a").on("click", function() {
+/*flip nav */	
+	$(".flipnav li a").on("click", function() {
   var activeTab = $(this).attr("href");
   $('#card > div').removeClass('flipped after before');
   $(activeTab).addClass('flipped');
@@ -40,11 +15,9 @@ return false;
   $(activeTab).nextAll('.flipper').addClass('after');
   return false;
 });
-$('a.openwin').click(function(e) {
-	 e.preventDefault();
-     newwindow=window.open($(this).attr('href'),'','height=600,width=850');
-		if (window.focus) {newwindow.focus()}
-		return false;
+ $('a.openwin').click(function() {
+	      window.open(this.href, '_blank','left=10,top=10,width=900,height=600,toolbar=1,resizable=1');
+		  return false;
            
 });
 
@@ -64,7 +37,6 @@ Browser check
 -------------------
 */
 var current_page = $(location).attr('href');
-
 var baseURL = window.location.protocol+"//"+window.location.host;
 //check the browser capability
 var userAgent = navigator.userAgent.toLowerCase();
@@ -103,9 +75,6 @@ $( window ).resize( function () {
   });
 // Resize to fix all iframes on page load.
 }).resize();
-
-
-
 /*
 -------------------------
 custom tooltip options
@@ -1018,46 +987,13 @@ $( "#user-search-input" ).autocomplete({
       },	  
 });
 }
-/*
--------------------
-Student progress on lern, pop up a summary sheet on my lerns
--------------------
-*/
-if (current_page.indexOf('my-lerns') > -1) {
-$(".print_summary_sheet").click(function(event) {
-event.preventDefault();
-//get the data for the dialog box
-var course_id = $(this).data('courseid');
-var user_id = $(this).data('userid');
-var baseURL = window.location.protocol+"//"+window.location.host;
-var urltoget = baseURL+"/wp-content/themes/hueman-child/processCustomAjax.php";
- //return the html string for the dialog box
-	$.post(urltoget, {'action':'get_lern_summary_sheet_data','user_id':user_id,'course_id':course_id}, function(ret){
-     var summary_html = ret;
-      //create the dialog and set up the print
-	$("#summary_sheet").dialog(
-	{
-	width: 700,
-	modal: true,
-	title: "Summary Sheet",
-        height: 850,
-	},
-	{ position: { my: "left top", at: "left 0, top +10", of: wrapper}},
-        { buttons: [{ text: "Close", click: function() { $( this ).dialog( "close" ); } },{ text: "Print", click: function() { var mywindow = window.open();
-         mywindow.document.write($('#box_msg').html());
-         mywindow.print();   mywindow.close(); } }  ] });
-        $( "#box_msg" ).html(summary_html);
-        $( "#summary_sheet" ).dialog( "open" );
-})
-});
-}
 
 /*
 -------------------
-Student progress on modules pop up a summary sheet on my modules
+Student progress on modules pop up a summary sheet
 -------------------
 */
-if (current_page.indexOf('student-progress') > -1 || current_page.indexOf('user-module-progress') > -1 || current_page.indexOf('self-study-progress') > -1  ) {
+if (current_page.indexOf('student-progress') > -1 || current_page.indexOf('user-module-progress') > -1 ) {
 $(".print_summary_sheet").click(function(event) {
 event.preventDefault();
 //get the data for the dialog box
@@ -1086,7 +1022,7 @@ var urltoget = baseURL+"/wp-content/themes/hueman-child/processCustomAjax.php";
 });
 /*
 -------------------
-Handle summary sheet click button on rosters
+Handle summary sheet click button
 -------------------
 */
 $(".show_student_course_summary").click(function(event) {
@@ -1828,6 +1764,7 @@ var ajaxURL = baseURL +'/wp-content/themes/hueman-child/processCustomAjax.php?ac
 xhr.open('GET', ajaxURL, true);
 xhr.send(null);
 }
+
 
 					
 					

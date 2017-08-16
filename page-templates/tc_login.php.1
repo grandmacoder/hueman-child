@@ -1,0 +1,28 @@
+<?php
+/*
+* Template Name: TC Login Page
+*/
+?>
+<?php get_header(); ?>
+<?php $referrer = $_SERVER['HTTP_REFERER']; ?>
+<section class="content">	
+<?php the_content();?>
+<p>&nbsp;</p>
+<form id="ajaxlogin" action="login" method="post"><h4>LOG IN</h4><br>
+<label class="error"></label>
+		<p><label for="username">Email </label><br> <input id="username" name="username" type="text" ></p><br>
+		<p><label for="password">Password</label><br> <input id="password" name="password" type="password" ></p>
+		<p class="login-remember" style="padding-top:10px; padding-bottom: 10px;"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember Me</label></p>
+        <p style="padding-bottom: 10px;"> <button name="submit" type="submit" value="Login">Login</button></p>
+		<input type="hidden" name="redirect_to" id="redirect_to" value="<?php echo $referrer;?>" />	
+		<a class="register small" href="<?php bloginfo('url'); ?>/register-3/">Create Account</a><br>
+		<a class="lost small" href="<?php bloginfo('url'); ?>/lostpassword/">Reset Password</a>
+		
+		<?php wp_nonce_field( 'ajax-login-nonce', 'security' ); ?>
+		
+	</form>
+</section>
+<?php 
+get_sidebar(); 
+get_footer(); 
+?>

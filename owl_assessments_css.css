@@ -1,0 +1,87 @@
+#assessmentCarousel{
+width: 90%;
+display: block;
+margin: 0 200px 0 0;
+height: auto;
+box-shadow: 5px 0px 5px  5px #e4e2e2;
+}
+
+#owl-demo .assessment_item{
+display: block;
+padding: 30px 0px;
+margin: 5px;
+color: #FFF;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 7px;
+background: #ffffff;
+height: 220px;
+text-align:center;
+}
+#owl-demo  img{
+width:120px;
+height:165px;
+box-shadow: 5px 5px 2px #cbcbcd;
+}
+#pageid{
+display:none;	
+}
+.assessment_item a{
+width:120px;
+height:auto;
+background-color: #ffffff;
+}
+
+.assessment_item_p  {
+  background-color: #ffffff !important;
+  color: #000 !important;
+  height: 15px !important;
+  padding-left:18px !important;
+  padding-top:18px !important;
+  margin-top:-18px !important;
+  font-size: 13px;
+}
+
+//To move navigation buttons outside use these settings:
+.owl-buttons{
+clear:both;
+top: -155px;
+}
+ .owl-next{
+top: -155px;
+float:right;
+position:relative;
+} 
+.owl-prev{
+ top: -155px;
+float:left;
+position:relative;
+
+}
+.owl-pagination{
+display:inline-block;
+}
+
+.assessment_results_header{
+color: #00225d;
+font-size: 19px;
+font-weight:bold;	
+padding-bottom: 10px;
+padding-top: 8px;
+}
+
+a.assessment_tag_selection:link {
+color: #00225d;
+font-size: 18px;
+padding-bottom: 10px;
+}
+a.assessment_tag_selection:hover {
+font-weight:bold;
+cursor: pointer; 
+}
+a.assessment_tag_selection:visited {
+color: #00225d;
+font-size: 18px;
+font-weight:bold;
+}
+

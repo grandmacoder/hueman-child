@@ -35,8 +35,7 @@ a:hover {color:#3b8dbd; font-weight: 500; text-decoration:underline; }
 		  $i=1;
 	     foreach ($courseData as $courseDataItem) {   //if it is the module id passed in and there has been some progress
 		 $registerlink="";
-		      
-			 //get the course extra fields
+		     //get the course extra fields
 			 $start_date = $courseDataItem->start_date;
 		     $start_timestamp =strtotime($start_date);
 			 $max_enrolled = $courseDataItem->max_enrolled;
@@ -83,11 +82,11 @@ a:hover {color:#3b8dbd; font-weight: 500; text-decoration:underline; }
 			 if (time() <  $start_timestamp ){ //check enrollment waitlist or enroll
 				 if ($num_enrolled >= $max_enrolled){
 				 $waitlistlink ="The course is currently full.  <a id='join-waiting-list' data-courseid='". $course_id ."'  href=#>Please join the waiting list.</a>"; 
-                 $courseList.="<div class='content-column one_fourth'><div style='padding-right: 12px;'>".$courseLogo ."<hr style='height: 10px; color:#3b8dbd; border: 0; box-shadow: inset 0 12px 12px -12px rgba(59, 141, 189, 1); width: 90%;' /><strong><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-sign-in'></i></span>". $waitlistlink."</strong><br><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-info-circle'></i></span>". $intro_guide_path."</div></div><div class='content-column three_fourth last_column'>" . $course_title."<p>" .  $courseDesc ."<br>This LERN starts on " . $short_date_formatted."</p><br>" .$coachcontent."</div>";				 
+                 $courseList.="<div class='content-column one_fourth'><div style='padding-right: 12px;'>".$courseLogo ."<hr style='height: 10px; color:#3b8dbd; border: 0; box-shadow: inset 0 12px 12px -12px rgba(59, 141, 189, 1); width: 90%;' /><strong><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-sign-in'></i></span>". $waitlistlink."</strong><br><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-info-circle'></i></span>". $intro_guide_path."</div></div><div class='content-column three_fourth last_column'>" . $course_title."<p>" .  $courseDesc ."<br>This LERN starts on " . $short_date_formatted."</p><br>" .$coachcontent."<hr></div>";				 
 				 }
 				 elseif ($num_enrolled < $max_enrolled){
 				 $registerlink ="<a href='/tc-registration/?coursekey=". $courseDataItem->enrollment_key ."'>Register Now!</a>"; 
-				 $courseList.="<div class='content-column one_fourth'><div style='padding-right: 12px;'>".$courseLogo ."<hr style='height: 10px; color:#3b8dbd; border: 0; box-shadow: inset 0 12px 12px -12px rgba(59, 141, 189, 1); width: 90%;' /><strong><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-sign-in'></i></span>". $registerlink."</strong><br><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-info-circle'></i></span>". $intro_guide_path."</div></div><div class='content-column three_fourth last_column'>" . $course_title."<p>" .  $courseDesc ."<br> This LERN starts on " . $short_date_formatted."</p><br>" .$coachcontent."</div>";
+				 $courseList.="<div class='content-column one_fourth'><div style='padding-right: 12px;'>".$courseLogo ."<hr style='height: 10px; color:#3b8dbd; border: 0; box-shadow: inset 0 12px 12px -12px rgba(59, 141, 189, 1); width: 90%;' /><strong><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-sign-in'></i></span>". $registerlink."</strong><br><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-info-circle'></i></span>". $intro_guide_path."</div></div><div class='content-column three_fourth last_column'>" . $course_title."<p>" .  $courseDesc ."<br> This LERN starts on " . $short_date_formatted."</p><br>" .$coachcontent."<hr></div>";
 				 }
 			}
 			elseif (time() > strtotime('+14 day', $start_timestamp)){  //course is over and not being offered 
@@ -96,11 +95,11 @@ a:hover {color:#3b8dbd; font-weight: 500; text-decoration:underline; }
 			}
 			else{  //course is in progress
 				 $inprogresslink ="<strong>This course is currently in progress.</strong>";	 
-				 $courseList.="<div class='content-column one_fourth'><div style='padding-right: 12px;'>".$courseLogo ."<hr style='height: 10px;  border: 0; box-shadow: inset 0 12px 12px -12px rgba(59, 141, 189, 1); width: 90%;' /><strong><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-sign-in'></i></span>". $inprogresslink."</strong><br><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-info-circle'></i></span>". $intro_guide_path."</div></div><div class='content-column three_fourth last_column'>" . $course_title."<p>" .  $courseDesc ."<br> This LERN starts on " . $short_date_formatted."</p><br>" .$coachcontent."</div>";
-			 }		
-            //add the hidden fancypop up div
-			} 
-	     $i++;
+				 $courseList.="<div class='content-column one_fourth'><div style='padding-right: 12px;'>".$courseLogo ."<hr style='height: 10px;  border: 0; box-shadow: inset 0 12px 12px -12px rgba(59, 141, 189, 1); width: 90%;' /><strong><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-sign-in'></i></span>". $inprogresslink."</strong><br><span style='color:#3b8dbd; font-size:25px; padding-right: 5px;'><i class='fa fa-info-circle'></i></span>". $intro_guide_path."</div></div><div class='content-column three_fourth last_column'>" . $course_title."<p>" .  $courseDesc ."<br> This LERN starts on " . $short_date_formatted."</p><br>" .$coachcontent."<hr></div>";
+			 }			
+			
+			}
+     	 $i++;
 
 		 }
 

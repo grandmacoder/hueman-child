@@ -1,0 +1,113 @@
+<?php
+/*
+Template Name: replicate a quiz
+*/
+get_header();
+?>
+<?php
+	global $wpdb;
+	//create a quiz manually through WP and get the id
+         $where=" where form_subsection_id  in (43,44,45)  ";
+        $quiz_questions = $wpdb->get_results("select * from form_questions ". $where ." order by form_subsection_id, form_questions.order", OBJECT);
+        //loop through the questions and get the choices.
+         foreach ($quiz_questions as $item){
+	 $i=1;
+	 $question=$item->question;
+	     $choices= $wpdb->get_results("Select * from form_choices where form_question_id = ". $item->form_question_id . " order by form_choices.order", OBJECT);
+	     echo "<BR>QUESTION: " . $question ."<BR>";
+	     
+	     foreach ($choices as $choice){
+				    if ($choice->correct == 0){
+				   echo $choice->label ."<BR>";
+				      //insert the choices
+				   }
+				     else{
+				   echo "<strong>". $choice->label ."</strong><br>";
+				     }
+	 }
+	 }
+echo "all done.";
+?>
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ?>
+<script src="<?php bloginfo('template_directory');?>/js/jquery.alerts.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory');?>/portfolio_module_style.css?v=<?php echo time(); ?>" media="screen" />
+<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory');?>/jquery.alerts.css?v=<?php echo time(); ?>" media="screen" />
+<section class="content">
+<?php get_template_part('inc/page-title'); ?>	
+    <div class="pad group">
+		<article>
+		<div style="padding-left: 30px;">
+			<?php the_content(); 
+			echo $insertedID;
+		        ?>
+		</div><!--/.entry-->
+	</article>
+</div><!--/.pad-->
+</section><!--/.content-->
+					
+<?php get_sidebar(); ?>
+<?php 	get_footer(); ?> 
+

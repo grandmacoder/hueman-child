@@ -8,12 +8,10 @@ $state_list = $wpdb->get_results($wpdb->prepare("SELECT state, abbreviation FROM
 $i=0;
 foreach($state_list as $state){
     $selected = "";
-	if ($i > 0){
-	if($_POST['user_select_state'] <> "" && $_POST['user_select_state'] == $state->abbreviation){
+    if($_POST['user_select_state'] <> "" && $_POST['user_select_state'] == $state->abbreviation){
 		$state_list_str .= "<option value='".$state->abbreviation."' selected>".$state->state."</option>";
 	}else{
 	$state_list_str .= "<option value='".$state->abbreviation."' ".$selected.">".$state->state."</option>";
-	}
 	}
 $i++;
 }

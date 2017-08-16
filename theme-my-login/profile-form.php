@@ -5,7 +5,7 @@ Theme My Login will always look in your theme's directory first, before using th
 */
 ?>
 <script src="<?php bloginfo('template_directory');?>-child/theme-my-login/tml-js/register-profile.js" type="text/javascript"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js" type="text/javascript"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js" type="text/javascript"></script>
 <div class="login profile" id="theme-my-login<?php $template->the_instance(); ?>">
 	<?php $template->the_action_template_message( 'profile' ); ?>
 	<?php $template->the_errors(); ?>
